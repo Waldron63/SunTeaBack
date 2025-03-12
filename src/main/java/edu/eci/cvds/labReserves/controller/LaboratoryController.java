@@ -111,10 +111,4 @@ public class LaboratoryController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // Busca laboratorios con capacidad mínima
-    @GetMapping("/capacity/{capacity}")
-    public ResponseEntity<List<Laboratory>> getLaboratoriesByMinCapacity(@PathVariable int capacity) {
-        List<Laboratory> laboratories = laboratorioService.getLaboratoriesByMinCapacity(capacity);
-        return new ResponseEntity<>(laboratories, HttpStatus.OK);
-    }
 }

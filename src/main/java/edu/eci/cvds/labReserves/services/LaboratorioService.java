@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,10 +16,10 @@ import java.util.stream.Collectors;
 @Service
 public class LaboratorioService {
 
-    private final LaboratorioMongoRepository laboratorioRepository;
+    private final LaboratoryMongoRepository laboratorioRepository;
 
     @Autowired
-    public LaboratorioService(LaboratorioMongoRepository laboratorioRepository) {
+    public LaboratorioService(LaboratoryMongoRepository laboratorioRepository) {
         this.laboratorioRepository = laboratorioRepository;
     }
 
@@ -30,7 +31,20 @@ public class LaboratorioService {
 
     // Obtiene todos los laboratorios
     public List<Laboratory> getAllLaboratories() {
-        return laboratorioRepository.findAll();
+        List<LaboratoryMongodb> mongoList = laboratorioRepository.findAll();
+        List<Laboratory> result = new ArrayList<>();
+        
+        for (LaboratoryMongodb mongo : mongoList) {
+            Laboratory lab = new Laboratory();
+            lab.setName(mongo.getName());
+            lab.setAbbreviation(mongo.getAbbreviation());
+            lab.setTotalCapacity(mongo.getTotalCapacity());
+            lab.setLocation(mongo.getLocation());
+            lab.setScheduleReferences(mongo.getScheduleReferences());
+            result.add(lab);
+        }
+        
+        return result;
     }
 
     // Busca un laboratorio por su abreviatura
@@ -89,10 +103,5 @@ public class LaboratorioService {
         }
         
         return false;
-    }
-
-    // Busca laboratorios con capacidad suficiente
-    public List<Laboratory> getLaboratoriesByMinCapacity(int capacity) {
-        return laboratorioRepository.findByTotalCapacityGreaterThanEqual(capacity);
     }
 }

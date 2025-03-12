@@ -22,8 +22,22 @@ public interface LaboratoryMongoRepository extends MongoRepository<LaboratoryMon
     // consultar horarios disponibles por dia
     List<Schedule> findAllByDay(String day);
     // consultar laboratorio por nombre
-    Laboratory findByName(String name);
+    //Laboratory findByName(String name);
     // consultar recursos por laboratorio
     List<Resource> findAllByName(String name);
+    // Busca un laboratorio por su abreviatura
+    LaboratoryMongodb findByAbbreviation(String abbreviation);
+    // Busca un laboratorio por su nombre
+    LaboratoryMongodb findByName(String name);
+    // Busca laboratorios por su ubicación
+    List<LaboratoryMongodb> findByLocation(String location);    
+    // Busca laboratorios por su capacidad total
+    List<LaboratoryMongodb> findByTotalCapacity(int totalCapacity);   
+    // Busca laboratorios con capacidad mayor o igual a la especificada
+    List<LaboratoryMongodb> findByTotalCapacityGreaterThanEqual(int capacity);   
+    // Verifica si existe un laboratorio con la abreviatura dada
+    boolean existsByAbbreviation(String abbreviation);   
+    // Elimina un laboratorio por su abreviatura
+    void deleteByAbbreviation(String abbreviation);
     
 }
