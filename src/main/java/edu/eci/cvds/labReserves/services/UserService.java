@@ -70,7 +70,8 @@ public class UserService{
      * @return
      */
     public User changeUserPassword(String newPassword, User user) throws LabReserveException {
-        user.setPassword(newPassword);
+        String cleanPassword = newPassword.trim().replaceAll("\\s+", "");
+        user.setPassword(cleanPassword);
         UserMongodb userMongodb = new UserMongodb(user);
         return userRepo.save(userMongodb);
     }
