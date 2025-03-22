@@ -2,9 +2,7 @@ package edu.eci.cvds.labReserves.controller;
 
 import edu.eci.cvds.labReserves.collections.LaboratoryMongodb;
 import edu.eci.cvds.labReserves.collections.ReserveMongodb;
-import edu.eci.cvds.labReserves.model.Schedule;
-import edu.eci.cvds.labReserves.model.Laboratory;
-import edu.eci.cvds.labReserves.model.ScheduleReference;
+import edu.eci.cvds.labReserves.model.*;
 import edu.eci.cvds.labReserves.services.LaboratoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,12 +62,77 @@ public class LaboratoryController {
     }
 
     /**
+     * Actualiza la capacidad de un laboratorio existente basado en su abreviatura.
+     * @param abbreviation Abreviatura del laboratorio a actualizar.
+     * @param requestbody nueva capacidad a actualizar.
+     */
+    @PutMapping("/totalCapacity/{abbreviation}")
+    public void updateLaboratoryCapacity(@PathVariable String abbreviation, @RequestBody Map<String, Integer> requestbody) {
+        int totalcapacity = requestbody.get("totalCapacity");
+        laboratoryService.updateLaboratoryTotalCapacity(abbreviation,totalcapacity);
+    }
+
+    /**
      * Actualiza un laboratorio existente basado en su abreviatura.
      * @param abbreviation Abreviatura del laboratorio a actualizar.
+     * @param requestbody nueva abreviatura a actualizar.
      */
-    @PutMapping("/update/{abbreviation}")
-    public void updateLaboratoryScheduleReference(@PathVariable String abbreviation) {
-         laboratoryService.updateLaboratoryScheduleReference(abbreviation);
+    @PutMapping("/changeAbbreviation/{abbreviation}")
+    public void updateLaboratoryAbbreviation(@PathVariable String abbreviation, @RequestBody Map<String, String> requestbody) {
+        String newAbbreviation = requestbody.get("abbreviation");
+        laboratoryService.updateLaboratoryAbbreviation(abbreviation,newAbbreviation);
+    }
+
+    /**
+     * Actualiza un laboratorio existente basado en su abreviatura.
+     * @param abbreviation Abreviatura del laboratorio a actualizar.
+     * @param requestbody nuevo nombre a actualizar.
+     */
+    @PutMapping("/name/{abbreviation}")
+    public void updateLaboratoryName(@PathVariable String abbreviation, @RequestBody Map<String, String> requestbody) {
+        String newName = requestbody.get("name");
+        laboratoryService.updateLaboratoryName(abbreviation,newName);
+    }
+
+    /**
+     * Actualiza un laboratorio existente basado en su abreviatura.
+     * @param abbreviation Abreviatura del laboratorio a actualizar.
+     * @param requestbody nueva locación a actualizar.
+     */
+    @PutMapping("/location/{abbreviation}")
+    public void updateLaboratoryLocation(@PathVariable String abbreviation, @RequestBody Map<String, String> requestbody) {
+        String newLocation = requestbody.get("location");
+        laboratoryService.updateLaboratoryLocation(abbreviation,newLocation);
+    }
+
+    /**
+     * Actualiza un laboratorio existente basado en su abreviatura.
+     * @param abbreviation Abreviatura del laboratorio a actualizar.
+     * @param physical nuevos recursos físicos a actualizar.
+     */
+    @PutMapping("/physicalResources/{abbreviation}")
+    public void updateLaboratoryPhysicsResources(@PathVariable String abbreviation, @RequestBody Physical physical) {
+        laboratoryService.updateLaboratoryPhysicsResources(abbreviation,physical);
+    }
+
+    /**
+     * Actualiza un laboratorio existente basado en su abreviatura.
+     * @param abbreviation Abreviatura del laboratorio a actualizar.
+     * @param software nuevos recursos físicos a actualizar.
+     */
+    @PutMapping("/softwareResources/{abbreviation}")
+    public void updateLaboratorySoftwareResources(@PathVariable String abbreviation, @RequestBody Software software) {
+        laboratoryService.updateLaboratorySoftwareResources(abbreviation,software);
+    }
+
+    /**
+     * Actualiza un laboratorio existente basado en su abreviatura.
+     * @param abbreviation Abreviatura del laboratorio a actualizar.
+     * @param scheduleReference nuevos recursos físicos a actualizar.
+     */
+    @PutMapping("/scheduleReference/{abbreviation}")
+    public void updateLaboratorySoftwareResources(@PathVariable String abbreviation, @RequestBody ScheduleReference scheduleReference) {
+        laboratoryService.updateLaboratoryScheduleReference(abbreviation,scheduleReference);
     }
 
     /**
