@@ -71,13 +71,10 @@ public class ScheduleReference {
     /**
      * Verifica si un horario dado está disponible en este horario de reserva.
      *
-     * @param schedule Horario a verificar.
+     * @param scheduleDay Horario a verificar.
      * @return true si el horario está disponible, false en caso contrario.
      */
-    public boolean isAvailable(Schedule schedule) {
-        DayOfWeek scheduleDay = schedule.getDay();
-        LocalTime scheduleStartTime = schedule.getStartHour();
-        LocalTime scheduleEndTime = schedule.getEndHour();
+    public boolean isAvailable(DayOfWeek scheduleDay, LocalTime scheduleStartTime, LocalTime scheduleEndTime) {
 
         boolean isDayAvailable = dayOfWeek.equals(scheduleDay);
         boolean isTimeWithinRange = !scheduleStartTime.isBefore(this.openingTime) && !scheduleEndTime.isAfter(this.closingTime);
