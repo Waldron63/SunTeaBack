@@ -214,5 +214,21 @@ public class Laboratory {
         return null;
     }
 
+    public void setScheduleReference(ScheduleReference scheduleReference){
+        boolean updated = false;
+
+        for (int i = 0; i < scheduleReferences.size(); i++) {
+            if (scheduleReferences.get(i).getDayOfWeek().equals(scheduleReference.getDayOfWeek())) {
+                scheduleReferences.set(i, scheduleReference);
+                updated = true;
+                break;
+            }
+        }
+
+        if (!updated) {
+            scheduleReferences.add(scheduleReference);
+        }
+    }
+
 
 }
